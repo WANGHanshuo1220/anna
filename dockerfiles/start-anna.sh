@@ -41,10 +41,8 @@ mkdir -p conf
 IS_EC2=`curl -s http://169.254.169.254`
 PRIVATE_IP=`ifconfig ens5 | grep 'inet' | grep -v inet6 | sed -e 's/^[ \t]*//' | cut -d' ' -f2`
 if [[ ! -z "$IS_EC2" ]]; then
-  echo "1111"
   PUBLIC_IP=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 else
-  echo "2222"
   PUBLIC_IP=$PRIVATE_IP
 fi
 
@@ -84,7 +82,6 @@ elif [ "$1" = "r" ]; then
   echo -e "    monitoring:" >> conf/anna-config.yml
   echo -e "$LST" >> conf/anna-config.yml
 
-  echo "run anna-route"
   ./build/target/kvs/anna-route
 elif [ "$1" = "b" ]; then
   echo -e "user:" >> conf/anna-config.yml
