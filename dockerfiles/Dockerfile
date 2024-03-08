@@ -21,6 +21,7 @@ ARG source_branch=master
 ARG build_branch=docker-build
 
 RUN apt-get update
+RUN apt-get upgrade
 RUN apt-get install -y python3-pip
 RUN apt-get install -y git
 RUN apt-get install net-tools
@@ -35,6 +36,8 @@ ENV HYDRO_HOME /hydro
 WORKDIR $HYDRO_HOME
 RUN git clone --recurse-submodules https://github.com/$repo_org/anna
 WORKDIR $HYDRO_HOME/anna
+RUN git submodule update --init --recursive
+RUN ./common/scripts/install-dependencies.sh
 RUN bash scripts/build.sh -j4 -bRelease
 WORKDIR /
 
