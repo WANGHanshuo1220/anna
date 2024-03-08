@@ -14,6 +14,8 @@
 
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 MAINTAINER Vikram Sreekanti <vsreekanti@gmail..com> version: 0.1
 
 ARG repo_org=WANGHanshuo1220
@@ -26,6 +28,8 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y git
 RUN apt-get install net-tools
 RUN apt-get install vim --yes
+RUN apt-get install -y cmake
+RUN apt-get install -y clang
 
 USER root
 RUN mkdir /hydro
@@ -36,6 +40,7 @@ ENV HYDRO_HOME /hydro
 WORKDIR $HYDRO_HOME
 RUN git clone --recurse-submodules https://github.com/$repo_org/anna
 WORKDIR $HYDRO_HOME/anna
+RUN pip3 install -r requirements.txt
 RUN git submodule update --init --recursive
 RUN ./common/scripts/install-dependencies.sh
 RUN bash scripts/build.sh -j4 -bRelease
