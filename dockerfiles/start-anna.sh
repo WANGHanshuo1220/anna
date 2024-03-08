@@ -59,6 +59,7 @@ fi
 git pull
 
 # Compile the latest version of the code on the branch we just check out.
+mkdir build
 cd build && make -j2 && cd ..
 
 # Do not start the server until conf/anna-config.yml has been copied onto this

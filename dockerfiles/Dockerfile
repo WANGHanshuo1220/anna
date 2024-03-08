@@ -39,4 +39,4 @@ RUN bash scripts/build.sh -j4 -bRelease
 WORKDIR /
 
 COPY start-anna.sh /
-CMD bash start-anna.sh $SERVER_TYPE
+# CMD bash start-anna.sh $SERVER_TYPE
