@@ -57,13 +57,9 @@ if [[ -z "$REPO_BRANCH" ]]; then
 fi
 
 git pull
-ls
 
 # Compile the latest version of the code on the branch we just check out.
-cd build
-echo "in build"
-ls
-make -j2 && cd ..
+bash scripts/build.sh -j4 -bRelease
 
 # Do not start the server until conf/anna-config.yml has been copied onto this
 # pod -- if we start earlier, we won't now how to configure the system.
