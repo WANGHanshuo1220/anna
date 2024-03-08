@@ -67,6 +67,8 @@ while [[ ! -f "conf/anna-config.yml" ]]; do
   continue
 done
 
+cat conf/anna-config.yml
+
 # Tailor the config file to have process specific information.
 if [ "$1" = "mn" ]; then
   echo -e "monitoring:" >> conf/anna-config.yml
