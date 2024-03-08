@@ -12,21 +12,29 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-FROM hydroproject/base:latest
+FROM ubuntu:20.04
 
 MAINTAINER Vikram Sreekanti <vsreekanti@gmail..com> version: 0.1
 
-ARG repo_org=hydro-project
+ARG repo_org=WANGHanshuo1220
 ARG source_branch=master
 ARG build_branch=docker-build
 
+RUN apt-get update
+RUN apt-get install -y python3-pip
+RUN apt-get install -y git
+RUN apt-get install net-tools
+RUN apt-get install vim --yes
+
 USER root
+RUN mkdir /hydro
+ENV HYDRO_HOME /hydro
 
 # Check out to the appropriate branch on the appropriate fork of the repository
 # and build Anna.
+WORKDIR $HYDRO_HOME
+RUN git clone --recurse-submodules https://github.com/$repo_org/anna
 WORKDIR $HYDRO_HOME/anna
-RUN git remote remove origin && git remote add origin https://github.com/$repo_org/anna
-RUN git fetch origin && git checkout -b $build_branch origin/$source_branch
 RUN bash scripts/build.sh -j4 -bRelease
 WORKDIR /
 
