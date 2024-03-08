@@ -47,4 +47,8 @@ RUN bash scripts/build.sh -j4 -bRelease
 WORKDIR /
 
 COPY start-anna.sh /
+
+RUN pip install protobuf==3.20
+RUN pip install numpy==1.16.1
+
 # CMD bash start-anna.sh $SERVER_TYPE
